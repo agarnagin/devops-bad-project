@@ -8,17 +8,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh './gradlew clean build'
+                sh './gradlew clean build --no-daemon'
             }
         }
         stage('Test') {
             steps {
                 sh './gradlew test'
-            }
-        }
-        stage('Quality') {
-            steps {
-                checkstyle pattern: 'config/checkstyle/checkstyle.xml'
             }
         }
         stage('Package') {
@@ -28,11 +23,16 @@ pipeline {
         }
     }
     post {
-        success {
-            echo 'Build succeeded!'
+        always {
+            junit {
+                allowEmptyResults: true,
+                testResults: '**/build/test-results/test/*.xml'
+            }
+            recordIssues(
+                enabledForFailure: true, aggregatingResults: true, 
+                tools: [java(), checkStyle(pattern: '**/build/reports/checkstyle/main.xml', reportEncoding: 'UTF-8')]
+            )
         }
-        failure {
-            echo 'Build failed!'
-        }
+        
     }
 }
