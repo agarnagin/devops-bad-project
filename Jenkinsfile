@@ -16,6 +16,11 @@ pipeline {
                 sh './gradlew test'
             }
         }
+        stage('Quality') {
+            steps {
+                checkstyle pattern: 'config/checkstyle/checkstyle.xml'
+            }
+        }
         stage('Package') {
             steps {
                 sh './gradlew bootJar'
