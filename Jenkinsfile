@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/agarnagin/devops-bad-project.git'
+                checkout scm
             }
         }
         stage('Build') {
