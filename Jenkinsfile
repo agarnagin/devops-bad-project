@@ -25,10 +25,11 @@ pipeline {
     post {
         always {
             recordIssues(
-                enabledForFailure: true, aggregatingResults: true, 
-                tools: [java(), checkStyle(pattern: '**/build/reports/checkstyle/main.xml', reportEncoding: 'UTF-8')]
+                enabledForFailure: true, 
+                aggregatingResults: true, 
+                tools: [java(), checkStyle(pattern: '**/build/reports/checkstyle/main.xml', reportEncoding: 'UTF-8')],
+                qualityGates: [[threshold: 5, type: 'TOTAL', unstable: false]]
             )
-        }
-        
+        }        
     }
 }
