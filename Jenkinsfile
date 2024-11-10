@@ -24,9 +24,6 @@ pipeline {
     }
     post {
         always {
-            junit {
-                testResults: '**/build/test-results/test/*.xml'
-            }
             recordIssues(
                 enabledForFailure: true, aggregatingResults: true, 
                 tools: [java(), checkStyle(pattern: '**/build/reports/checkstyle/main.xml', reportEncoding: 'UTF-8')]
