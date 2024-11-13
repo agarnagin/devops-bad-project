@@ -33,3 +33,7 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+checkstyleMain {
+    source = sourceSets.main.java
+    maxWarnings = 4
+}
