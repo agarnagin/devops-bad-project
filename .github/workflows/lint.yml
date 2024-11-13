@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: setup jdk
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: 21
       - name: Checkout
         uses: actions/checkout@v3
 
